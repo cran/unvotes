@@ -39,7 +39,7 @@ by_country_year
 library(ggplot2)
 theme_set(theme_bw())
 
-countries <- c("United States", "United Kingdom", "India", "France")
+countries <- c("United States of America", "United Kingdom of Great Britain and Northern Ireland", "India", "France")
 
 # there were fewer votes in 2013
 by_country_year %>%
@@ -50,7 +50,7 @@ by_country_year %>%
 
 ## ----issue_plot, dependson = "joined", fig.height = 8, fig.width = 8-----
 joined %>%
-  filter(country == "United States") %>%
+  filter(country == "United States of America") %>%
   inner_join(un_roll_call_issues, by = "rcid") %>%
   group_by(year = year(date), issue) %>%
   summarize(votes = n(),
