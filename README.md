@@ -13,7 +13,7 @@ These come from the dataset [found here](https://dataverse.harvard.edu/dataset.x
 
 > Erik Voeten "Data and Analyses of Voting in the UN General Assembly" Routledge Handbook of International Organization, edited by Bob Reinalda (published May 27, 2013)
 
-This raw data, and the processing script, can be found in the [data-raw](data-raw) folder.
+This raw data, and the processing script, can be found in the [data-raw](https://github.com/dgrtwo/unvotes/tree/master/data-raw) folder.
 
 ### Installation
 
@@ -24,7 +24,7 @@ Install the package with:
 install.packages("unvotes")
 ```
 
-You can also install the development version of the package using [devtools](https://github.com/hadley/devtools):
+You can also install the development version of the package using [devtools](https://github.com/r-lib/devtools):
 
 
 ```r
@@ -41,20 +41,20 @@ library(dplyr)
 library(unvotes)
 
 un_votes
-#> # A tibble: 738,764 x 4
-#>     rcid                  country country_code   vote
-#>    <int>                    <chr>        <chr> <fctr>
-#>  1     3 United States of America           US    yes
-#>  2     3                   Canada           CA     no
-#>  3     3                     Cuba           CU    yes
-#>  4     3                    Haiti           HT    yes
-#>  5     3       Dominican Republic           DO    yes
-#>  6     3                   Mexico           MX    yes
-#>  7     3                Guatemala           GT    yes
-#>  8     3                 Honduras           HN    yes
-#>  9     3              El Salvador           SV    yes
-#> 10     3                Nicaragua           NI    yes
-#> # ... with 738,754 more rows
+#> # A tibble: 869,937 x 4
+#>     rcid country            country_code vote 
+#>    <dbl> <chr>              <chr>        <fct>
+#>  1     3 United States      US           yes  
+#>  2     3 Canada             CA           no   
+#>  3     3 Cuba               CU           yes  
+#>  4     3 Haiti              HT           yes  
+#>  5     3 Dominican Republic DO           yes  
+#>  6     3 Mexico             MX           yes  
+#>  7     3 Guatemala          GT           yes  
+#>  8     3 Honduras           HN           yes  
+#>  9     3 El Salvador        SV           yes  
+#> 10     3 Nicaragua          NI           yes  
+#> # … with 869,927 more rows
 ```
 
 The package also contains a dataset of information about each roll call vote, including the date, description, and relevant resolution that was voted on:
@@ -62,52 +62,52 @@ The package also contains a dataset of information about each roll call vote, in
 
 ```r
 un_roll_calls
-#> # A tibble: 5,429 x 9
-#>     rcid session importantvote       date   unres amend  para
-#>    <int>   <dbl>         <dbl>     <date>   <chr> <dbl> <dbl>
-#>  1     3       1             0 1946-01-01  R/1/66     1     0
-#>  2     4       1             0 1946-01-02  R/1/79     0     0
-#>  3     5       1             0 1946-01-04  R/1/98     0     0
-#>  4     6       1             0 1946-01-04 R/1/107     0     0
-#>  5     7       1             0 1946-01-02 R/1/295     1     0
-#>  6     8       1             0 1946-01-05 R/1/297     1     0
-#>  7     9       1             0 1946-02-05 R/1/329     0     0
-#>  8    10       1             0 1946-02-05 R/1/361     1     1
-#>  9    11       1             0 1946-02-05 R/1/376     0     0
-#> 10    12       1             0 1946-02-06 R/1/394     1     1
-#> # ... with 5,419 more rows, and 2 more variables: short <chr>, descr <chr>
+#> # A tibble: 6,202 x 9
+#>     rcid session importantvote date       unres  amend  para short             descr                                                  
+#>    <int>   <dbl>         <int> <date>     <chr>  <int> <int> <chr>             <chr>                                                  
+#>  1     3       1             0 1946-01-01 R/1/66     1     0 AMENDMENTS, RULE… "TO ADOPT A CUBAN AMENDMENT TO THE UK PROPOSAL REFERRI…
+#>  2     4       1             0 1946-01-02 R/1/79     0     0 SECURITY COUNCIL… "TO ADOPT A USSR PROPOSAL ADJOURNING DEBATE ON AND POS…
+#>  3     5       1             0 1946-01-04 R/1/98     0     0 VOTING PROCEDURE  "TO ADOPT THE KOREAN PROPOSAL THAT INVALID BALLOTS BE …
+#>  4     6       1             0 1946-01-04 R/1/1…     0     0 DECLARATION OF H… "TO ADOPT A CUBAN PROPOSAL (A/3-C) THAT AN ITEM ON A D…
+#>  5     7       1             0 1946-01-02 R/1/2…     1     0 GENERAL ASSEMBLY… "TO ADOPT A 6TH COMMITTEE AMENDMENT (A/14) TO THE PROV…
+#>  6     8       1             0 1946-01-05 R/1/2…     1     0 ECOSOC POWERS     "TO ADOPT A SECOND 6TH COMM. AMENDMENT (A/14) TO THE P…
+#>  7     9       1             0 1946-02-05 R/1/3…     0     0 POST-WAR RECONST… "TO OPEN THE DISCUSSION ON THE POLISH DRAFT RESOLUTION…
+#>  8    10       1             0 1946-02-05 R/1/3…     1     1 U.N. MEMBERS, RE… "TO ADOPT GENERAL COMM. DRAFT RESOLUTION (A/40) AS AME…
+#>  9    11       1             0 1946-02-05 R/1/3…     0     0 TRUSTEESHIP AMEN… "TO ADOPT DRAFT RESOLUTIONS I AND II AS A WHOLE, OF TH…
+#> 10    12       1             0 1946-02-06 R/1/3…     1     1 COUNCIL MEMBER T… "TO ADOPT PARAGRAPH (A) OF THE 6TH COMM. DRAFT RESOLUT…
+#> # … with 6,192 more rows
 ```
 
-Finally, the `un_roll_call_issues` dataset shows relationships betwen each vote and 6 issues:
+Finally, the `un_roll_call_issues` dataset shows relationships between each vote and 6 issues:
 
 
 ```r
 un_roll_call_issues
-#> # A tibble: 5,281 x 3
-#>     rcid short_name                issue
-#>    <int>      <chr>                <chr>
-#>  1  3372         me Palestinian conflict
-#>  2  3658         me Palestinian conflict
-#>  3  3692         me Palestinian conflict
-#>  4  2901         me Palestinian conflict
-#>  5  3020         me Palestinian conflict
-#>  6  3217         me Palestinian conflict
-#>  7  3298         me Palestinian conflict
-#>  8  3429         me Palestinian conflict
-#>  9  3558         me Palestinian conflict
-#> 10  3625         me Palestinian conflict
-#> # ... with 5,271 more rows
+#> # A tibble: 5,745 x 3
+#>     rcid short_name issue               
+#>    <int> <chr>      <fct>               
+#>  1    77 me         Palestinian conflict
+#>  2  9001 me         Palestinian conflict
+#>  3  9002 me         Palestinian conflict
+#>  4  9003 me         Palestinian conflict
+#>  5  9004 me         Palestinian conflict
+#>  6  9005 me         Palestinian conflict
+#>  7  9006 me         Palestinian conflict
+#>  8   128 me         Palestinian conflict
+#>  9   129 me         Palestinian conflict
+#> 10   130 me         Palestinian conflict
+#> # … with 5,735 more rows
 
 count(un_roll_call_issues, issue, sort = TRUE)
 #> # A tibble: 6 x 2
-#>                                  issue     n
-#>                                  <chr> <int>
-#> 1                 Palestinian conflict  1104
-#> 2                          Colonialism   991
-#> 3                         Human rights   986
-#> 4         Arms control and disarmament   956
-#> 5 Nuclear weapons and nuclear material   762
-#> 6                 Economic development   482
+#>   issue                                    n
+#>   <fct>                                <int>
+#> 1 Arms control and disarmament          1092
+#> 2 Palestinian conflict                  1061
+#> 3 Human rights                          1015
+#> 4 Colonialism                            957
+#> 5 Nuclear weapons and nuclear material   855
+#> 6 Economic development                   765
 ```
 
 (Use `help()` to get information and documentation about each dataset).
@@ -122,25 +122,22 @@ library(dplyr)
 
 joined <- un_votes %>%
   inner_join(un_roll_calls, by = "rcid")
-#> Warning: Column `rcid` has different attributes on LHS and RHS of join
 
 joined
-#> # A tibble: 738,764 x 12
-#>     rcid                  country country_code   vote session
-#>    <int>                    <chr>        <chr> <fctr>   <dbl>
-#>  1     3 United States of America           US    yes       1
-#>  2     3                   Canada           CA     no       1
-#>  3     3                     Cuba           CU    yes       1
-#>  4     3                    Haiti           HT    yes       1
-#>  5     3       Dominican Republic           DO    yes       1
-#>  6     3                   Mexico           MX    yes       1
-#>  7     3                Guatemala           GT    yes       1
-#>  8     3                 Honduras           HN    yes       1
-#>  9     3              El Salvador           SV    yes       1
-#> 10     3                Nicaragua           NI    yes       1
-#> # ... with 738,754 more rows, and 7 more variables: importantvote <dbl>,
-#> #   date <date>, unres <chr>, amend <dbl>, para <dbl>, short <chr>,
-#> #   descr <chr>
+#> # A tibble: 869,937 x 12
+#>     rcid country    country_code vote  session importantvote date       unres  amend  para short      descr                           
+#>    <dbl> <chr>      <chr>        <fct>   <dbl>         <int> <date>     <chr>  <int> <int> <chr>      <chr>                           
+#>  1     3 United St… US           yes         1             0 1946-01-01 R/1/66     1     0 AMENDMENT… TO ADOPT A CUBAN AMENDMENT TO T…
+#>  2     3 Canada     CA           no          1             0 1946-01-01 R/1/66     1     0 AMENDMENT… TO ADOPT A CUBAN AMENDMENT TO T…
+#>  3     3 Cuba       CU           yes         1             0 1946-01-01 R/1/66     1     0 AMENDMENT… TO ADOPT A CUBAN AMENDMENT TO T…
+#>  4     3 Haiti      HT           yes         1             0 1946-01-01 R/1/66     1     0 AMENDMENT… TO ADOPT A CUBAN AMENDMENT TO T…
+#>  5     3 Dominican… DO           yes         1             0 1946-01-01 R/1/66     1     0 AMENDMENT… TO ADOPT A CUBAN AMENDMENT TO T…
+#>  6     3 Mexico     MX           yes         1             0 1946-01-01 R/1/66     1     0 AMENDMENT… TO ADOPT A CUBAN AMENDMENT TO T…
+#>  7     3 Guatemala  GT           yes         1             0 1946-01-01 R/1/66     1     0 AMENDMENT… TO ADOPT A CUBAN AMENDMENT TO T…
+#>  8     3 Honduras   HN           yes         1             0 1946-01-01 R/1/66     1     0 AMENDMENT… TO ADOPT A CUBAN AMENDMENT TO T…
+#>  9     3 El Salvad… SV           yes         1             0 1946-01-01 R/1/66     1     0 AMENDMENT… TO ADOPT A CUBAN AMENDMENT TO T…
+#> 10     3 Nicaragua  NI           yes         1             0 1946-01-01 R/1/66     1     0 AMENDMENT… TO ADOPT A CUBAN AMENDMENT TO T…
+#> # … with 869,927 more rows
 ```
 
 One could then count how often each country votes "yes" on a resolution in each year:
@@ -155,21 +152,21 @@ by_country_year <- joined %>%
             percent_yes = mean(vote == "yes"))
 
 by_country_year
-#> # A tibble: 9,689 x 4
-#> # Groups:   year [?]
-#>     year                          country votes percent_yes
-#>    <dbl>                            <chr> <int>       <dbl>
-#>  1  1946                      Afghanistan    17   0.4117647
-#>  2  1946                        Argentina    43   0.6976744
-#>  3  1946                        Australia    43   0.5581395
-#>  4  1946                          Belarus    43   0.4418605
-#>  5  1946                          Belgium    43   0.6046512
-#>  6  1946 Bolivia (Plurinational State of)    43   0.6976744
-#>  7  1946                           Brazil    43   0.6046512
-#>  8  1946                           Canada    42   0.6428571
-#>  9  1946                            Chile    43   0.6046512
-#> 10  1946                         Colombia    42   0.3095238
-#> # ... with 9,679 more rows
+#> # A tibble: 10,461 x 4
+#> # Groups:   year [73]
+#>     year country     votes percent_yes
+#>    <dbl> <chr>       <int>       <dbl>
+#>  1  1946 Afghanistan    17       0.412
+#>  2  1946 Argentina      43       0.698
+#>  3  1946 Australia      43       0.558
+#>  4  1946 Belarus        43       0.442
+#>  5  1946 Belgium        43       0.605
+#>  6  1946 Bolivia        43       0.698
+#>  7  1946 Brazil         43       0.605
+#>  8  1946 Canada         42       0.643
+#>  9  1946 Chile          43       0.605
+#> 10  1946 Colombia       42       0.310
+#> # … with 10,451 more rows
 ```
 
 After which this can be visualized for one or more countries:
@@ -179,14 +176,14 @@ After which this can be visualized for one or more countries:
 library(ggplot2)
 theme_set(theme_bw())
 
-countries <- c("United States of America", "India", "France")
+countries <- c("United States", "India", "France")
 
-# there were fewer votes in 2013
 by_country_year %>%
-  filter(country %in% countries, year <= 2013) %>%
+  filter(country %in% countries) %>%
   ggplot(aes(year, percent_yes, color = country)) +
   geom_line() +
-  ylab("% of votes that are 'Yes'")
+  ylab("% of votes that are 'Yes'") +
+  expand_limits(y = 0)
 ```
 
 ![plot of chunk by_country_year_plot](tools/README-by_country_year_plot-1.png)
@@ -196,7 +193,7 @@ Similarly, we could look at how the voting record of the United States has chang
 
 ```r
 joined %>%
-  filter(country == "United States of America") %>%
+  filter(country == "United States") %>%
   inner_join(un_roll_call_issues, by = "rcid") %>%
   group_by(year = year(date), issue) %>%
   summarize(votes = n(),
@@ -206,11 +203,10 @@ joined %>%
   geom_point() +
   geom_smooth(se = FALSE) +
   facet_wrap(~ issue)
-#> Warning: Column `rcid` has different attributes on LHS and RHS of join
 ```
 
 ![plot of chunk issue_plot](tools/README-issue_plot-1.png)
 
 ### Code of Conduct
 
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/dgrtwo/unvotes/blob/master/CONDUCT.md). By participating in this project you agree to abide by its terms.

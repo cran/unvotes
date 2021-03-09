@@ -1,23 +1,23 @@
-## ----echo = FALSE--------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 knitr::opts_chunk$set(message = FALSE, warning = FALSE,
                       fig.height = 5, fig.width = 5)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(dplyr)
 library(unvotes)
 
 un_votes
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 un_roll_calls
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 un_roll_call_issues
 
 library(dplyr)
 count(un_roll_call_issues, issue, sort = TRUE)
 
-## ----joined--------------------------------------------------------------
+## ----joined-------------------------------------------------------------------
 library(dplyr)
 
 joined <- un_votes %>%
@@ -25,7 +25,7 @@ joined <- un_votes %>%
 
 joined
 
-## ----by_country_year, dependson = "joined"-------------------------------
+## ----by_country_year, dependson = "joined"------------------------------------
 library(lubridate)
 
 by_country_year <- joined %>%
@@ -35,22 +35,21 @@ by_country_year <- joined %>%
 
 by_country_year
 
-## ----by_country_year_plot, dependson = "by_country_year"-----------------
+## ----by_country_year_plot, dependson = "by_country_year"----------------------
 library(ggplot2)
 theme_set(theme_bw())
 
-countries <- c("United States of America", "United Kingdom of Great Britain and Northern Ireland", "India", "France")
+countries <- c("United States", "United Kingdom", "India", "France")
 
-# there were fewer votes in 2013
 by_country_year %>%
-  filter(country %in% countries, year <= 2013) %>%
+  filter(country %in% countries) %>%
   ggplot(aes(year, percent_yes, color = country)) +
   geom_line() +
   ylab("% of votes that are 'Yes'")
 
-## ----issue_plot, dependson = "joined", fig.height = 8, fig.width = 8-----
+## ----issue_plot, dependson = "joined", fig.height = 8, fig.width = 8----------
 joined %>%
-  filter(country == "United States of America") %>%
+  filter(country == "United States") %>%
   inner_join(un_roll_call_issues, by = "rcid") %>%
   group_by(year = year(date), issue) %>%
   summarize(votes = n(),

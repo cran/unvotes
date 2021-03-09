@@ -30,7 +30,7 @@
 #' by_country <- un_votes %>%
 #'   group_by(country) %>%
 #'   summarize(votes = n(),
-#'             percent_yes = mean(vote == 1))
+#'             percent_yes = mean(vote == "yes"))
 #'
 #' arrange(by_country, percent_yes)
 #' arrange(by_country, desc(percent_yes))
@@ -47,7 +47,7 @@
 #' votes_issues %>%
 #'   filter(issue == "Colonialism") %>%
 #'   group_by(country) %>%
-#'   summarize(percent_yes = mean(vote == 1)) %>%
+#'   summarize(percent_yes = mean(vote == "yes")) %>%
 #'   arrange(percent_yes)
 #'
 #' @source Erik Voeten "Data and Analyses of Voting in the UN General Assembly"

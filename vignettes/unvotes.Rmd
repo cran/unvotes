@@ -5,8 +5,10 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{The unvotes package}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r echo = FALSE}
@@ -33,7 +35,7 @@ The package also contains a dataset of information about each roll call vote, in
 un_roll_calls
 ```
 
-Finally, the `un_roll_call_issues` dataset shows relationships betwen each vote and 6 issues:
+Finally, the `un_roll_call_issues` dataset shows relationships between each vote and 6 issues:
 
 ```{r}
 un_roll_call_issues
@@ -76,11 +78,10 @@ After which this can be visualized for one or more countries:
 library(ggplot2)
 theme_set(theme_bw())
 
-countries <- c("United States of America", "United Kingdom of Great Britain and Northern Ireland", "India", "France")
+countries <- c("United States", "United Kingdom", "India", "France")
 
-# there were fewer votes in 2013
 by_country_year %>%
-  filter(country %in% countries, year <= 2013) %>%
+  filter(country %in% countries) %>%
   ggplot(aes(year, percent_yes, color = country)) +
   geom_line() +
   ylab("% of votes that are 'Yes'")
@@ -90,7 +91,7 @@ Similarly, we could look at how the voting record of the United States has chang
 
 ```{r issue_plot, dependson = "joined", fig.height = 8, fig.width = 8}
 joined %>%
-  filter(country == "United States of America") %>%
+  filter(country == "United States") %>%
   inner_join(un_roll_call_issues, by = "rcid") %>%
   group_by(year = year(date), issue) %>%
   summarize(votes = n(),
